@@ -1,76 +1,58 @@
-# brand
+# Skunkworks Academy Brand
 
-Skunkworks Academy — Brand Guidelines and Assets
+Official source repository for the Skunkworks Academy identity system and the `brand.skunkworksacademy.com` brand-governance portal.
 
-This repository contains the visual identity and brand assets for Skunkworks Academy. Use these guidelines to ensure consistent and correct application of our logo, colors, typography, and other visual elements across projects and communications.
+## Published portal
 
-## Contents
+The root `index.html` provides:
 
-- `assets/` — logos, iconography, and source files (SVG, EPS, PNG).
-- `colors.md` — color palette and usage examples.
-- `typography.md` — approved typefaces and usage rules.
-- `examples/` — sample layouts, social posts, and mockups.
+- Brand foundations and canonical design tokens
+- Logo selection, clearspace and prohibited-use rules
+- Digital UI and subdomain implementation guidance
+- Social media usage rules
+- Co-branding hierarchy and partner-mark separation
+- Brand terms of use
+- Interactive pre-publication governance checklist
+- Responsive light and dark themes
 
-## Logo
+## Source of truth
 
-Primary logo files are stored in `assets/logo/`. Use the full-color logo on light backgrounds and the white (reversed) logo on dark backgrounds. Do not stretch, distort, recolor, or add effects to the official logo.
+Canonical v1 values:
 
-Clearspace
+- Ink Navy: `#03033A`
+- Skunk Blue: `#1E6BD0`
+- Signal Orange: `#F24208`
+- White: `#FFFFFF`
+- Off White: `#F7F9FC`
+- Graphite: `#15171A`
+- Steel Gray: `#D8DEE8`
+- Slate Text: `#5A6472`
 
-- Maintain a minimum clearspace equal to the height of the logomark around the logo on all sides.
+Typography:
 
-Minimum Size
+- Display: Inter Black / Extra Bold
+- Body and UI: Open Sans
+- Technical: IBM Plex Mono
 
-- For print: 12 mm wide.
-- For screen: 40 px wide.
+Machine-readable values are maintained in `assets/tokens.json`.
 
-## Color Palette
+## Deployment
 
-Our core palette is defined in `colors.md`. Use primary colors for brand-first communications and accent colors sparingly to support hierarchy.
+This repository is designed for GitHub Pages deployment from the `main` branch root. The `CNAME` file maps the site to `brand.skunkworksacademy.com`.
 
-Provide accessible color pairings (contrast >= 4.5:1) for body text and UI elements.
+Required DNS record:
 
-## Typography
+```text
+Type: CNAME
+Name: brand
+Target: skunkworks-academy.github.io
+```
 
-Approved typefaces and usage guidance are in `typography.md`. Generally:
+## Governance
 
-- Headings: [Primary Display Typeface] — use for large headings and hero text.
-- Body: [Primary Sans] — for readable body copy and UI.
-
-When web fonts are not available, use the recommended system fallbacks listed in `typography.md`.
-
-## Imagery & Iconography
-
-Use imagery that reflects experimentation, learning, teamwork, and creativity. Maintain consistent image treatments (crop, color grade) across campaigns.
-
-Icons should be used from the `assets/icons/` set to maintain visual consistency.
-
-## File Formats
-
-Provide vector formats (SVG, EPS) for print and high-resolution PNG for raster use. Source files (Sketch, Figma, or Illustrator) should be stored where applicable and linked from this repo.
-
-## Usage Examples
-
-See `examples/` for approved layouts for presentations, social media, and web headers. Adhere to spacing, type scale, and color usage demonstrated there.
-
-## Contributing
-
-To add or update assets or guidelines:
-
-1. Fork the repository.
-2. Add or update files in the appropriate directory.
-3. Open a pull request with a clear description of the change and include previews for visual changes.
-
-Design changes that affect the core identity should be reviewed by the Brand owner or the Design lead.
-
-## License
-
-Assets in this repository are provided for use by Skunkworks Academy projects and partners. Check each asset file for license details; where applicable, reuse may be restricted.
+Core identity changes require review by the Skunkworks Academy brand owner or delegated design lead. Do not mix deprecated marks with current assets. Third-party, partner and co-branded publication requires approval before release.
 
 ## Contact
 
-For questions or requests related to the brand (new assets, approvals, or exceptions), contact: brand@skunkworks.academy
-
----
-
-This README was generated/updated to provide structure for brand assets and guidelines. If you want more specific content (full color tokens, font names, or downloadable asset links), tell me which sections to expand and I will update the file accordingly.
+- Brand and approval requests: `brand@skunkworks.academy`
+- Training and Academy enquiries: `training@skunkworks.africa`
