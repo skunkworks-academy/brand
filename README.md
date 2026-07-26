@@ -15,18 +15,29 @@ The root `index.html` provides:
 - Interactive pre-publication governance checklist
 - Responsive light and dark themes
 
+The dedicated `colour-system.html` page provides the complete visual palette, RGB values, supporting neutrals, accessibility note and the approved `70 / 20 / 8 / 2` usage ratio.
+
 ## Source of truth
 
 Canonical v1 values:
 
-- Ink Navy: `#03033A`
-- Skunk Blue: `#1E6BD0`
-- Signal Orange: `#F24208`
-- White: `#FFFFFF`
-- Off White: `#F7F9FC`
-- Graphite: `#15171A`
-- Steel Gray: `#D8DEE8`
-- Slate Text: `#5A6472`
+- Ink Navy: `#03033A` — RGB `3, 3, 58`
+- Skunk Blue: `#1E6BD0` — RGB `30, 107, 208`
+- Signal Orange: `#F24208` — RGB `242, 66, 8`
+- White: `#FFFFFF` — RGB `255, 255, 255`
+- Off White: `#F7F9FC` — RGB `247, 249, 252`
+- Graphite: `#15171A` — RGB `21, 23, 26`
+- Steel Gray: `#D8DEE8` — RGB `216, 222, 232`
+- Slate Text: `#5A6472` — RGB `90, 100, 114`
+
+Approved usage ratio:
+
+- `70%` White / Off White
+- `20%` Ink / Graphite
+- `8%` Skunk Blue
+- `2%` Signal Orange
+
+`#8FBAFF` is an accessibility support token for small text on Ink Navy. It does not replace canonical Skunk Blue.
 
 Typography:
 
