@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Colour System | Skunkworks Academy Brand</title>
+  <meta name="description" content="Canonical Skunkworks Academy colour palette, supporting neutrals and 70/20/8/2 usage ratio.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/skunkworks-academy/www/refs/heads/main/images/favicon-black.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/skunkworks-academy/www/refs/heads/main/images/favicon-white.png" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&family=Open+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#03033A;--blue:#1E6BD0;--orange:#F24208;--white:#FFFFFF;
+      --off:#F7F9FC;--graphite:#15171A;--steel:#D8DEE8;--slate:#5A6472;
+      --blue-dark:#8FBAFF;--radius:28px;--shadow:0 16px 46px rgba(3,3,58,.08)
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--off);color:var(--graphite);font:400 16px/1.55 "Open Sans","Segoe UI",Arial,sans-serif}
+    a:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+    .shell{width:min(1320px,calc(100% - 32px));margin:auto}
+    header{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--steel);background:rgba(247,249,252,.94);backdrop-filter:blur(16px)}
+    .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);font-weight:800;text-decoration:none}
+    .brand img{width:34px;height:34px}
+    .navlinks{display:flex;gap:8px;flex-wrap:wrap}
+    .navlinks a{min-height:44px;display:inline-flex;align-items:center;padding:8px 13px;border-radius:999px;color:var(--slate);font-weight:700;text-decoration:none}
+    .navlinks a:hover{background:var(--white);color:var(--ink)}
+    main{padding:72px 0 64px}
+    .eyebrow{margin:0 0 12px;color:var(--blue);font:700 13px/1 "IBM Plex Mono",Consolas,monospace;letter-spacing:.12em;text-transform:uppercase}
+    h1,h2,h3{font-family:"Inter","Segoe UI",Arial,sans-serif;letter-spacing:-.03em;line-height:1.05}
+    h1{max-width:900px;margin:0;font-size:clamp(3rem,7vw,6.2rem)}
+    .intro{max-width:980px;margin:20px 0 52px;color:var(--slate);font-size:clamp(1.05rem,2vw,1.35rem)}
+    .core{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+    .swatch{min-height:350px;display:flex;flex-direction:column;justify-content:flex-end;padding:30px;border:1px solid rgba(21,23,26,.14);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .swatch h2{margin:0 0 20px;font-size:1.35rem;letter-spacing:-.01em}
+    .swatch code{font:600 1.12rem "IBM Plex Mono",Consolas,monospace}
+    .swatch .rgb{margin:14px 0 18px;font-size:1rem}
+    .swatch p{margin:0;font-size:.96rem;line-height:1.35}
+    .ink{background:var(--ink);color:var(--white)}
+    .blue{background:var(--blue);color:var(--white)}
+    .orange{background:var(--orange);color:var(--graphite)}
+    .white{background:var(--white);color:var(--graphite)}
+    section{margin-top:54px}
+    section>h2{margin:0 0 22px;color:var(--blue);font-size:1.2rem;letter-spacing:.01em;text-transform:uppercase}
+    .neutrals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+    .neutral{min-height:82px;display:flex;align-items:center;padding:20px;border:1px solid var(--steel);border-radius:16px;font-weight:800}
+    .neutral span{margin-left:8px;font:600 .9rem "IBM Plex Mono",Consolas,monospace}
+    .off{background:var(--off);color:var(--graphite)}
+    .graphite{background:var(--graphite);color:var(--white)}
+    .steel{background:var(--steel);color:var(--graphite)}
+    .slate{background:var(--slate);color:var(--white)}
+    .ratio{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;overflow:hidden;border:1px solid var(--steel);border-radius:var(--radius);background:var(--white);box-shadow:var(--shadow)}
+    .ratio article{min-height:220px;padding:30px;border-right:1px solid var(--steel)}
+    .ratio article:last-child{border-right:0}
+    .ratio strong{display:block;margin-bottom:12px;color:var(--blue);font:900 clamp(2rem,4vw,3.5rem)/1 "Inter",sans-serif}
+    .ratio article:last-child strong{color:var(--orange)}
+    .ratio h3{margin:0 0 12px;font-size:.95rem;letter-spacing:0}
+    .ratio p{margin:0;color:var(--slate);font-size:.9rem;line-height:1.35}
+    .rule{margin-top:34px;padding:22px 24px;border-left:6px solid var(--orange);border-radius:14px;background:#FFF1EB;color:var(--graphite)}
+    footer{padding:30px 0 44px;color:var(--slate);font-size:.9rem}
+    @media(max-width:980px){.core,.neutrals,.ratio{grid-template-columns:repeat(2,minmax(0,1fr))}.ratio article:nth-child(2){border-right:0}.ratio article:nth-child(-n+2){border-bottom:1px solid var(--steel)}}
+    @media(max-width:620px){.nav{align-items:flex-start;flex-direction:column;padding:14px 0}.navlinks{width:100%}.core,.neutrals,.ratio{grid-template-columns:1fr}.swatch{min-height:290px}.ratio article{border-right:0;border-bottom:1px solid var(--steel)}.ratio article:last-child{border-bottom:0}}
+    @media(prefers-color-scheme:dark){body{background:#05050B;color:#F4F6FA}header{border-color:#2D2D3D;background:rgba(5,5,11,.94)}.brand{color:var(--white)}.navlinks a{color:#C8D1DF}.navlinks a:hover{background:#11111C;color:var(--white)}.intro,footer{color:#C8D1DF}.white{border-color:#2D2D3D}.ratio{border-color:#2D2D3D;background:#11111C}.ratio article{border-color:#2D2D3D}.ratio p{color:#C8D1DF}.off{color:var(--graphite)}.rule{background:#2A140C;color:#F4F6FA}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell nav">
+      <a class="brand" href="index.html"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/skunkworks-academy/www/refs/heads/main/images/favicon-white.png"><img src="https://raw.githubusercontent.com/skunkworks-academy/www/refs/heads/main/images/favicon-black.png" alt="" width="34" height="34"></picture><span>Skunkworks Academy Brand</span></a>
+      <nav class="navlinks" aria-label="Colour-system links"><a href="index.html">Brand portal</a><a href="assets/tokens.json">Design tokens</a><a href="https://portal.skunkworksacademy.com/">Sign in</a></nav>
+    </div>
+  </header>
+  <main class="shell">
+    <p class="eyebrow">06 · Colour system</p>
+    <h1>One canonical palette for every Academy design.</h1>
+    <p class="intro">Use these exact values. Do not sample colours manually from screenshots or compressed exports. Skunk Blue remains the canonical blue; the lighter blue-on-dark token is an accessibility support value for small text on Ink Navy.</p>
+
+    <div class="core" aria-label="Core brand colours">
+      <article class="swatch ink"><h2>Ink Navy</h2><code>#03033A</code><div class="rgb">RGB 3, 3, 58</div><p>Premium dark backgrounds, hero shells, dark LMS and portal surfaces.</p></article>
+      <article class="swatch blue"><h2>Skunk Blue</h2><code>#1E6BD0</code><div class="rgb">RGB 30, 107, 208</div><p>Primary digital accent, CTAs, links, active states and blue logo use on dark.</p></article>
+      <article class="swatch orange"><h2>Signal Orange</h2><code>#F24208</code><div class="rgb">RGB 242, 66, 8</div><p>Restrained accent for dividers, urgency, campaign energy and emphasis rules.</p></article>
+      <article class="swatch white"><h2>White</h2><code>#FFFFFF</code><div class="rgb">RGB 255, 255, 255</div><p>Negative space, reversed marks, document and course-content surfaces.</p></article>
+    </div>
+
+    <section>
+      <h2>Supporting neutrals</h2>
+      <div class="neutrals">
+        <div class="neutral off">Off White <span>#F7F9FC</span></div>
+        <div class="neutral graphite">Graphite <span>#15171A</span></div>
+        <div class="neutral steel">Steel Gray <span>#D8DEE8</span></div>
+        <div class="neutral slate">Slate Text <span>#5A6472</span></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Colour usage ratio</h2>
+      <div class="ratio">
+        <article><strong>70%</strong><h3>White / Off White</h3><p>Main learning surfaces, course pages and proposal bodies.</p></article>
+        <article><strong>20%</strong><h3>Ink / Graphite</h3><p>Text, premium shells and hero backgrounds.</p></article>
+        <article><strong>8%</strong><h3>Skunk Blue</h3><p>CTAs, links, active states and brand highlights.</p></article>
+        <article><strong>2%</strong><h3>Signal Orange</h3><p>Dividers, alerts and campaign accents—never long body copy.</p></article>
+      </div>
+      <div class="rule"><strong>Accessibility rule:</strong> use <code>#8FBAFF</code> only as the readable-on-dark support token for small labels on Ink Navy. It does not replace canonical Skunk Blue in the brand palette.</div>
+    </section>
+  </main>
+  <footer class="shell">Skunkworks Academy Brand · Canonical colour reference · Dream. Design. Deliver.</footer>
+</body>
+</html>
