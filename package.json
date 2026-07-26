@@ -1,0 +1,13 @@
+{
+  "name": "@skunkworks-academy/brand-portal",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/validate-site.mjs",
+    "validate": "node scripts/validate-site.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
