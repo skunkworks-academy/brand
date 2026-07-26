@@ -1,12 +1,13 @@
 import { readFileSync } from 'node:fs';
 
 const html = readFileSync('index.html', 'utf8');
+const colourSystem = readFileSync('colour-system.html', 'utf8');
 const cname = readFileSync('CNAME', 'utf8').trim();
 const tokens = JSON.parse(readFileSync('assets/tokens.json', 'utf8'));
 const errors = [];
 
-const requireText = (value, description) => {
-  if (!html.includes(value)) errors.push(`Missing ${description}: ${value}`);
+const requireText = (document, value, description) => {
+  if (!document.includes(value)) errors.push(`Missing ${description}: ${value}`);
 };
 
 if (cname !== 'brand.skunkworksacademy.com') {
@@ -25,15 +26,30 @@ for (const [value, description] of [
   ['min-height: 44px', 'minimum touch target'],
   ['aria-expanded', 'mobile navigation state'],
   ['aria-controls="nav"', 'mobile navigation relationship']
-]) requireText(value, description);
+]) requireText(html, value, description);
 
 for (const section of ['foundations', 'logo', 'digital', 'social', 'cobranding', 'terms', 'governance']) {
-  requireText(`id="${section}"`, `${section} section`);
-  requireText(`href="#${section}"`, `${section} navigation target`);
+  requireText(html, `id="${section}"`, `${section} section`);
+  requireText(html, `href="#${section}"`, `${section} navigation target`);
 }
 
-if (/\becosystem\b/i.test(html)) {
-  errors.push('Disallowed term "ecosystem" found in index.html');
+for (const [value, description] of [
+  ['#03033A', 'Ink Navy'],
+  ['#1E6BD0', 'Skunk Blue'],
+  ['#F24208', 'Signal Orange'],
+  ['#FFFFFF', 'White'],
+  ['#F7F9FC', 'Off White'],
+  ['#15171A', 'Graphite'],
+  ['#D8DEE8', 'Steel Gray'],
+  ['#5A6472', 'Slate Text'],
+  ['70%', '70 percent usage ratio'],
+  ['20%', '20 percent usage ratio'],
+  ['8%', '8 percent usage ratio'],
+  ['2%', '2 percent usage ratio']
+]) requireText(colourSystem, value, description);
+
+if (/\becosystem\b/i.test(html) || /\becosystem\b/i.test(colourSystem)) {
+  errors.push('Disallowed term "ecosystem" found in brand portal content');
 }
 
 const hexToRgb = hex => {
@@ -41,6 +57,45 @@ const hexToRgb = hex => {
   if (!/^[0-9a-f]{6}$/i.test(value)) throw new Error(`Invalid HEX colour: ${hex}`);
   return [0, 2, 4].map(offset => Number.parseInt(value.slice(offset, offset + 2), 16));
 };
+
+const expectedCore = {
+  'ink-navy': { hex: '#03033A', rgb: [3, 3, 58] },
+  'skunk-blue': { hex: '#1E6BD0', rgb: [30, 107, 208] },
+  'signal-orange': { hex: '#F24208', rgb: [242, 66, 8] },
+  white: { hex: '#FFFFFF', rgb: [255, 255, 255] }
+};
+
+for (const [name, expected] of Object.entries(expectedCore)) {
+  const actual = tokens.palette?.core?.[name];
+  if (!actual) {
+    errors.push(`Missing core palette token: ${name}`);
+    continue;
+  }
+  if (actual.hex.toUpperCase() !== expected.hex) {
+    errors.push(`${name} must be ${expected.hex}, received ${actual.hex}`);
+  }
+  if (JSON.stringify(actual.rgb) !== JSON.stringify(expected.rgb)) {
+    errors.push(`${name} RGB must be ${expected.rgb.join(', ')}, received ${actual.rgb?.join(', ')}`);
+  }
+}
+
+const usageRatio = tokens.palette?.['usage-ratio'] ?? {};
+const ratioTotal = Object.values(usageRatio).reduce((sum, value) => sum + Number(value || 0), 0);
+if (ratioTotal !== 100) {
+  errors.push(`Colour usage ratio must total 100, received ${ratioTotal}`);
+}
+
+const expectedRatio = {
+  'white-off-white': 70,
+  'ink-graphite': 20,
+  'skunk-blue': 8,
+  'signal-orange': 2
+};
+for (const [name, value] of Object.entries(expectedRatio)) {
+  if (usageRatio[name] !== value) {
+    errors.push(`${name} usage ratio must be ${value}, received ${usageRatio[name]}`);
+  }
+}
 
 const channel = value => {
   const normalized = value / 255;
@@ -89,4 +144,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('\nBrand portal integration and accessibility validation passed.');
+console.log('\nBrand portal integration, colour-system and accessibility validation passed.');
