@@ -41,29 +41,50 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Inject and verify Academy global shell on every HTML page
+      - name: Inject and verify Academy global shell on every HTML document
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          loader = '<script defer src="https://skunkworksacademy.com/assets/academy-navigation.js?v=2026.08.15.2" data-skunkworks-global-shell="2026.08.15.2"></script>'
-          pages = []
+          import re
+
+          current = 'https://skunkworksacademy.com/assets/academy-navigation.js?v=2026.08.15.1'
+          marker = 'data-skunkworks-global-nav="v10"'
+          loader = f'<script defer src="{current}" {marker}></script>'
+          old_tags = re.compile(r'<script\b[^>]*(?:academy-navigation\.js|data-skunkworks-global-nav|data-skunkworks-global-shell)[^>]*>\s*</script>', re.I)
+          documents = []
+
           for path in Path('.').rglob('*.html'):
               if any(part in {'.git', 'node_modules'} for part in path.parts):
                   continue
               html = path.read_text(encoding='utf-8', errors='ignore')
-              if 'academy-navigation.js' not in html and 'data-skunkworks-global-shell' not in html:
-                  if '</head>' in html:
-                      html = html.replace('</head>', f'  {loader}\n</head>', 1)
-                  elif '</body>' in html:
-                      html = html.replace('</body>', f'  {loader}\n</body>', 1)
-                  else:
-                      raise SystemExit(f'Cannot inject global shell into {path}: no closing head/body tag')
-                  path.write_text(html, encoding='utf-8')
-              pages.append(path)
-          missing = [str(path) for path in pages if 'academy-navigation.js' not in path.read_text(encoding='utf-8', errors='ignore') and 'data-skunkworks-global-shell' not in path.read_text(encoding='utf-8', errors='ignore')]
+              if not re.search(r'<!doctype\s+html|<html\b|<head\b|<body\b', html, re.I):
+                  continue
+              html = old_tags.sub('', html)
+              if re.search(r'</head\s*>', html, re.I):
+                  html = re.sub(r'</head\s*>', f'  {loader}\n</head>', html, count=1, flags=re.I)
+              elif re.search(r'</body\s*>', html, re.I):
+                  html = re.sub(r'</body\s*>', f'  {loader}\n</body>', html, count=1, flags=re.I)
+              else:
+                  raise SystemExit(f'Malformed HTML document cannot receive Academy shell: {path}')
+              path.write_text(html, encoding='utf-8')
+              documents.append(path)
+
+          if not documents:
+              raise SystemExit('Brand staging produced no HTML documents.')
+
+          missing = []
+          duplicate = []
+          for path in documents:
+              html = path.read_text(encoding='utf-8', errors='ignore')
+              if current not in html or marker not in html:
+                  missing.append(str(path))
+              if html.count('academy-navigation.js') > 1:
+                  duplicate.append(str(path))
           if missing:
-              raise SystemExit('Missing Academy global shell: ' + ', '.join(missing))
-          print(f'Verified Academy global shell on {len(pages)} HTML page(s).')
+              raise SystemExit('Global shell missing from: ' + ', '.join(missing))
+          if duplicate:
+              raise SystemExit('Duplicate global shell loaders in: ' + ', '.join(duplicate))
+          print(f'Verified Academy canonical v10 shell on {len(documents)} Brand HTML document(s).')
           PY
 
       - name: Configure GitHub Pages
